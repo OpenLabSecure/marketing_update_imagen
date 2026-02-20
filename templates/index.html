@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Images to Blackblaze B2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-cloud-upload-alt"></i> Blackblaze B2 Image Uploader</h1>
+            <p>Sube imágenes y obtén su URL pública en Blackblaze B2</p>
+        </header>
+
+        <main>
+            <section class="upload-section">
+                <h2><i class="fas fa-upload"></i> Subir Nueva Imagen</h2>
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <p>Arrastra y suelta una imagen aquí o haz clic para seleccionar</p>
+                    <input type="file" id="fileInput" accept=".webp,.jpg,.jpeg,.png,.gif">
+                    <div class="file-info" id="fileInfo">
+                        <span id="fileName">Ningún archivo seleccionado</span>
+                        <span id="fileSize"></span>
+                    </div>
+                    <div class="buttons">
+                        <button id="cancelBtn" class="btn btn-secondary" disabled>
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                        <button id="uploadBtn" class="btn btn-primary" disabled>
+                            <i class="fas fa-paper-plane"></i> Subir
+                        </button>
+                    </div>
+                    <div class="progress-container" id="progressContainer">
+                        <div class="progress-bar" id="progressBar"></div>
+                        <span id="progressText">0%</span>
+                    </div>
+                    <div id="message" class="message"></div>
+                </div>
+            </section>
+
+            <section class="images-section">
+                <h2><i class="fas fa-images"></i> Imágenes Subidas</h2>
+                <div class="controls">
+                    <button id="refreshBtn" class="btn btn-refresh">
+                        <i class="fas fa-sync-alt"></i> Actualizar Lista
+                    </button>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Buscar por nombre o URL...">
+                    </div>
+                </div>
+                <div class="images-list" id="imagesList">
+                    <div class="loading" id="loadingIndicator">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando imágenes...
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Proyecto Blackblaze B2 &copy; 2025 | Usando bucket: <strong>openlapimages</strong></p>
+        </footer>
+    </div>
+
+    <!-- Template para cada item de imagen -->
+    <template id="imageItemTemplate">
+        <div class="image-item">
+            <div class="image-preview">
+                <img src="" alt="" class="preview-img">
+            </div>
+            <div class="image-info">
+                <h3 class="image-filename"></h3>
+                <div class="image-url">
+                    <label>URL:</label>
+                    <div class="url-container">
+                        <input type="text" class="url-input" readonly>
+                        <button class="btn-copy" title="Copiar URL">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="image-meta">
+                    <span class="timestamp"><i class="far fa-clock"></i> <span class="time-text"></span></span>
+                    <a href="" class="btn-view" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> Ver Imagen
+                    </a>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
