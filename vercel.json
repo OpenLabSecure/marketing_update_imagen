@@ -5,14 +5,15 @@
       "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
-        "maxBodySize": "4.2mb"
+        "maxBodySize": "200mb"
       }
     }
   ],
   "routes": [
     {
       "src": "/static/(.*)",
-      "dest": "/static/$1"
+      "dest": "/static/$1",
+      "continue": true
     },
     {
       "src": "/(.*)",

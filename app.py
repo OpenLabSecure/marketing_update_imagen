@@ -540,11 +540,12 @@ def complete_upload():
 #         }), 500
 
 # Static files are served directly by Vercel in production
-if not IS_VERCEL:
-    @app.route('/static/<path:filename>')
-    def serve_static(filename):
-        """Servir archivos estáticos"""
-        return send_from_directory('static', filename)
+# Also available via Flask for compatibility
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    """Servir archivos estáticos"""
+    static_dir = os.path.join(BASE_DIR, 'static')
+    return send_from_directory(static_dir, filename)
 
 if __name__ == '__main__':
     debug = os.getenv('FLASK_ENV') == 'development'
