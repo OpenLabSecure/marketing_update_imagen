@@ -6,12 +6,24 @@
     <title>Upload Images to Blackblaze B2</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        window.IS_VERCEL = {{ 'true' if is_vercel else 'false' }};
+    </script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-cloud-upload-alt"></i> Blackblaze B2 Image Uploader</h1>
-            <p>Sube imágenes y obtén su URL pública en Blackblaze B2</p>
+            <div class="header-container">
+                <div class="header-title">
+                    <h1><i class="fas fa-cloud-upload-alt"></i> Blackblaze B2 Image Uploader</h1>
+                    <p>Sube imágenes y obtén su URL pública en Blackblaze B2</p>
+                </div>
+                <div class="header-actions">
+                    <a href="{{ url_for('logout') }}" class="btn-logout" title="Cerrar sesión">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                    </a>
+                </div>
+            </div>
         </header>
 
         <main>
@@ -24,6 +36,17 @@
                     <div class="file-info" id="fileInfo">
                         <span id="fileName">Ningún archivo seleccionado</span>
                         <span id="fileSize"></span>
+                        <span id="fileSizeComparison" class="file-size-comparison" style="display: none;"></span>
+                    </div>
+                    <div class="convert-option" id="convertOption" style="display: none; margin: 10px 0;">
+                        <label>
+                            <input type="checkbox" id="convertToWebp">
+                            <i class="fas fa-compress-alt"></i> Convertir a WebP (mejor compresión)
+                        </label>
+                        <div class="quality-slider" id="qualitySlider" style="display: none; margin-top: 5px;">
+                            <label>Calidad: <span id="qualityValue">85</span>%</label>
+                            <input type="range" id="webpQuality" min="1" max="100" value="85" style="width: 100%;">
+                        </div>
                     </div>
                     <div class="buttons">
                         <button id="cancelBtn" class="btn btn-secondary" disabled>

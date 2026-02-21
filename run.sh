@@ -59,7 +59,7 @@ fi
 
 # Verificar dependencias
 echo "Verificando dependencias..."
-python -c "import flask, b2sdk, flask_cors, dotenv" 2>/dev/null
+python -c "import flask, b2sdk, flask_cors, dotenv, firebase_admin" 2>/dev/null
 if [ $? -ne 0 ]; then
     echo "Instalando dependencias faltantes..."
     pip install -r requirements.txt
@@ -76,13 +76,13 @@ if [ ! -f ".env" ]; then
     if [ -f ".env.example" ]; then
         echo "Puedes copiar .env.example como .env y ajustar las configuraciones:"
         echo "  cp .env.example .env"
-        echo "  # Edita .env con tus credenciales de Backblaze B2"
+        echo "  # Edita .env con tus credenciales de Backblaze B2 y Firebase"
         read -p "¿Copiar .env.example a .env ahora? (s/n): " -n 1 -r
         echo
         if [[ $REPLY =~ ^[Ss]$ ]]; then
             cp .env.example .env
             echo "Archivo .env creado. Edítalo con tus credenciales."
-            echo -e "${YELLOW}IMPORTANTE: Edita el archivo .env antes de continuar.${NC}"
+            echo -e "${YELLOW}IMPORTANTE: Edita el archivo .env con tus credenciales de Backblaze B2 y Firebase antes de continuar.${NC}"
             exit 1
         fi
     else
@@ -92,8 +92,9 @@ if [ ! -f ".env" ]; then
 fi
 
 # Configuración del puerto (opcional)
-PORT=${PORT:-5000}
-HOST=${HOST:-0.0.0.0}
+export PORT=${PORT:-5000}
+export HOST=${HOST:-0.0.0.0}
+export FLASK_ENV=${FLASK_ENV:-production}
 
 # Iniciar aplicación
 echo -e "\n${GREEN}Iniciando aplicación en http://localhost:${PORT} ${NC}"

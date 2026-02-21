@@ -1,0 +1,33 @@
+# Ignore Python virtual environment
+venv/
+mi_entorno/
+
+# Ignore local uploads and data directories
+uploads/
+data/
+__pycache__/
+
+# Ignore environment files (use Vercel environment variables)
+.env
+.env.local
+
+# Ignore development and test files
+*.log
+*.pyc
+.pytest_cache/
+.coverage
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore temporary files
+*.tmp
+test.png
+cookies.txt
+
+# Ignore migration scripts (already executed)
+migrate_json_to_firestore.py
+test_firestore.py
